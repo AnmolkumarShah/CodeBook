@@ -26,7 +26,7 @@ exports.compileJava = function (envData , code , fn ){
 			    	if(exports.stats)
 			    		console.log('INFO: '.green + path + "/Main.java created");				    	
 			    	
-			    	if(envData.OS === "windows")
+			    	// if(envData.OS === "windows")
 						var command = "cd "+path+ " & " + " javac Main.java";
 					exec(command , function( error , stdout , stderr ){
 						if(error)
@@ -102,7 +102,7 @@ exports.compileJavaWithInput = function (envData , code , input , fn ){
 							console.log('ERROR: '.red + err);
 						else
 						{
-							if(envData.OS === "windows")
+							// if(envData.OS === "windows")
 							var command = "cd "+path+ " & " + " javac Main.java";
 							exec(command , function( error , stdout , stderr ){						
 								if(error)
