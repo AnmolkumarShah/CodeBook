@@ -115,7 +115,7 @@ exports.compileRun = async (req,res,next)=>{
         let envData = { OS : os,cmd : "g++",options: {timeout:2000 }};
         if(isInput){
           compilex.compileCPPWithInput(envData,code, input ,async function(data){
-            if(data.error){	
+            if(data.error){	          
               const output = await data.error;   
               clear();         
               res.render("compiler.ejs",{pageTitle : "Compiler",path : "/compiler" ,code:code,output:output,language:"C++ Language"});

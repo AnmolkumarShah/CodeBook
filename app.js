@@ -11,7 +11,7 @@ const ErrorController = require('./controllers/404controller');
 const mongoDBUrl = "mongodb+srv://anmolshah:anmolshah@cluster0.c6704.mongodb.net/<dbname>?retryWrites=true&w=majority";
 const app = express();
 const store = new MongoDBSession({ uri: mongoDBUrl, collection: "Sessions" });
-
+    
 const User = require("./models/user");
 
 app.use(express.static(path.join(__dirname, "/public")));
