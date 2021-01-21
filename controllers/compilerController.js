@@ -81,7 +81,7 @@ exports.compileRun = async (req,res,next)=>{
       case "C Language":
       {
 
-        let envData = { OS : os,cmd : "g++",options: {timeout:2000 }};
+        let envData = { OS : os,cmd : os === "windows" ? "g++" : "gcc",options: {timeout:2000 }};
         if(isInput){
           compilex.compileCPPWithInput(envData,code, input ,async function(data){
             if(data.error){	
@@ -112,7 +112,7 @@ exports.compileRun = async (req,res,next)=>{
       case "C++ Language":
       {
 
-        let envData = { OS : os,cmd : "g++",options: {timeout:2000 }};
+        let envData = { OS : os,cmd : os === "windows" ? "g++" : "gcc",options: {timeout:2000 }};
         if(isInput){
           compilex.compileCPPWithInput(envData,code, input ,async function(data){
             if(data.error){	
