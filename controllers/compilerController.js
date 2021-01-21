@@ -3,6 +3,8 @@ const path = require('path');
 const fs = require('fs');
 const flush = require('../functions/flush');
 
+const my_compilex = require('../functions/compilex');
+
 compilex.init({stats:true});
 
 const os = process.platform === "win32" ? "windows" : "linux";
@@ -145,7 +147,7 @@ exports.compileRun = async (req,res,next)=>{
         
         let envData = { OS : os,options: {timeout:2000 }};
         if(isInput){
-          compilex.compileJavaWithInput(envData,code, input ,async function(data){
+          my_compilex.compileJavaWithInput(envData,code, input ,async function(data){
             if(data.error){	
               const output = await data.error;  
               const pathToDir = path.join(__dirname,'../','java');
@@ -159,7 +161,7 @@ exports.compileRun = async (req,res,next)=>{
             }        	
           }); 
         }else{
-          compilex.compileJava(envData,code,async function(data){
+          my_compilex.compileJava(envData,code,async function(data){
             if(data.error){	
               const output = await data.error;   
               const pathToDir = path.join(__dirname,'../','java');
