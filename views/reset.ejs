@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('./includes/Bootstrap.ejs') %>
+  <style>
+    .container{
+      margin-top: 25%;
+    }
+    body{
+      background-image: url("https://cdn.pixabay.com/photo/2018/12/09/14/44/leaf-3865014_1280.jpg");
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+  <title><%=pageTitle%></title>
+</head>
+<body>
+  <%- include('./includes/Navbar.ejs') %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <% if(errorMessage){ %>
+          <div>
+            <div class="alert alert-warning" role="alert">
+              <%=errorMessage%>
+            </div>
+          </div>
+          <% } %>
+
+          <% if(guideMessage){ %>
+            <div>
+              <div class="alert alert-primary" role="alert">
+                <%=guideMessage%>
+              </div>
+            </div>
+            <% } %>
+        <form action="/reset" method="POST" class="justify-content-center align-content-center">
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="h1 text-white">Email address</label>
+            <input autocomplete="off" name="email" type="email" class="form-control" id="exampleInputEmail1">
+          </div>
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <button type="submit" class="btn btn-primary">Reset Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script src="/codemirror/lib/codemirror.js"></script>
+  <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="/codemirror/theme/darcula.css">
+  <script src="/codemirror/mode/clike/clike.js"></script>
+  <!-- bootstrap Styles -->
+  <%- include('./includes/Bootstrap.ejs') %>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="CSS/output.css">
+  <style>
+  .CodeMirror {
+    padding: 10px;
+      height: 80vh;
+    }
+  </style>
+  <title><%=pageTitle%></title>
+</head>
+<body>
+
+  <%- include('./includes/Navbar.ejs') %>
+
+  <form class="mt-5" action="/compiler" method="POST" id="myForm">
+    <textarea id="editor" name="code"><%=code%></textarea> 
+    <input type="hidden" name="_csrf" value="<%=csrfToken%>">   
+    <div class="container mt-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <label class="input-group-text h6 " for="inputGroupSelect01">Choose Language</label>
+        </div>
+        <select name="language" class="form-control mx-1" id="exampleFormControlSelect2">
+          <option <%= language === "C Language" ?"selected": ""%> >C Language</option>
+          <option <%= language === "C++ Language" ?"selected": ""%> >C++ Language</option>
+          <option <%= language === "Java Language" ?"selected": ""%> >Java Language</option>
+          <option <%= language === "Python Language" ?"selected": ""%> >Python Language</option>
+        </select>
+      </div>
+
+      <div class="mx-3">
+        <input id="isInput" name="isInput" type="checkbox">
+        <label for="isInput" class="h6">Select this if you are giving any input</label>
+      </div>
+      <div class="input-group input-group mx-1">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Input's Here</span>
+        </div>
+        <input name="input" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+      </div>
+    </div>
+
+    <div class="container pt-3">
+      <div class="row justify-content-end">       
+        <button type="submit" class="btn m-4 btn-outline-dark" data-toggle="tooltip" data-placement="bottom" title="Shortcut Enter key" >Run Code</button>
+      </div>
+    </div>
+  </form>  
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Save to CodeBook</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form action="/user/save-program", method="POST">
+            <input type="text" class="form-control" id="" name="heading" placeholder="my first program..." required>
+            <textarea class="form-control mt-1" name="code" id="exampleFormControlTextarea1" rows="3" required><%=code%></textarea>
+            <br>
+            <span class="badge badge-warning p-2"><%=language%></span><br>
+            <input type="hidden" value="<%=language%>" name="language" required>
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save To Book</button>
+            </div>
+          </form>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <% if(output) { %>
+
+  <div id="save-banner">
+    <% if(isAuthenticated){%>
+    <button data-toggle="modal" data-target="#exampleModal">
+      Click to Save  <span><i class="fas fa-save"></i></span>
+    </button>
+    <% }else{ %>
+      <form action="/login" method="GET">
+        <button class="btn text-white">
+          Login To Save
+        </button>
+      </form>
+    <% } %>
+  </div>
+
+  <div class="container m-2 output-screen" id="op">
+    <div class="head">
+      <div id="heading">Output</div>
+    <button type="button" id="close"  data-toggle="tooltip" data-placement="bottom" title="Shortcut ECS key" onclick="closeOutput()"><span><i class="fas fa-times-circle"></i></span></button>
+    </div>
+    <textarea name="output" id="output" cols="30" rows="10"><%=output%></textarea>
+  </div>
+  <% } %>
+
+
+  
+  <script>
+    const closeOutput = function(){
+      document.getElementById("op").style.display = "none";
+    }
+    document.addEventListener('keydown',function(e){
+      if(e.which === 27){
+        closeOutput();
+      }
+    });
+  </script>
+<script>
+   document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.which === 13) {
+      document.getElementById("myForm").submit();
+    }
+  });
+    let val = document.getElementById("exampleFormControlSelect2").value;
+    console.log(val);
+    const code = document.getElementById('editor');
+    const editor = CodeMirror.fromTextArea(code,{
+      lineNumbers : true,
+      tabSize: 4,
+      mode : "text/x-c++src",
+      theme : "darcula"
+    });
+</script>
+</body>
+</html>

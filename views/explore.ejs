@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('./includes/Bootstrap.ejs') %>
+  <style>
+    form{
+      display:inline-block;
+      width: auto;
+    }
+    .card{
+      grid-template-columns: 3fr 1fr;
+    }
+  </style>
+  <link rel="stylesheet" href="CSS/output.css">
+  <link rel="stylesheet" href="CSS/style.css">
+  <title><%=pageTitle%></title>
+</head>
+
+<body>
+  <%- include('./includes/Navbar.ejs') %>
+  <div class="jumbotron-fluid jumbotron">
+    <video src="./videos/Laptop.mp4" autoplay muted loop class="mb-5"></video>
+    <div class="main_header" data-aos="fade-up">
+      <div class="col-sm-6 mt-5">
+        <div class="display-3 text-white"><i class="fas fa-book"></i> Explore</div>
+        <div class="h1 text-white mt-4" style="text-align: center;">Explore what other people's are coding</div>
+      </div>
+      <div class="main_header" style="z-index: 999;">
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+
+    <% if(programs && programs.length > 0 ) { %>
+    <% programs.forEach(program => { %>
+    <div class="card w-100 mt-3">
+      <div class="card-body">
+        <h5 class="card-title"><%=program.heading%></h5>
+        <span class="badge badge-secondary p-2 my-1"><%=program.language%></span>
+        <span class="badge badge-secondary p-2 my-1"><%=program.date.toLocaleDateString() %></span>
+        <hr>
+        <pre class="card-text"><%=program.code%></pre>
+      </div>
+
+      <div class="card-footer">
+        <form action="/compiler/rerun" method="POST">
+          <input type="hidden" name="code" value="<%=program.code%> ">
+          <input type="hidden" name="language" value="<%=program.language%> ">
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <button
+            class="btn btn-outline-dark btn-sm"><%= program.language === "Python Language" ? "ReInterpret" :  "ReCompile" %>
+          </button>
+        </form>
+
+        <form action="/explore/addToBook" method="POST">
+          <input type="hidden" name="heading" value="<%=program.heading%> ">
+          <input type="hidden" name="code" value="<%=program.code%> ">
+          <input type="hidden" name="language" value="<%=program.language%> ">
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <button
+            class="btn btn-outline-dark btn-sm">Add to My Book</button>
+        </form>
+      </div>
+    </div>
+    <% }); %>
+
+    <% }else{ %>
+    <div class="align-content-center mt-5">
+      <div class="card w-75 mt-5">
+        <div class="card-header">No Program's Yet</div>
+        <div class="card-body">
+          <form action="/compiler" method="GET">
+            <button class="btn btn-warning mt-1 btn-lg">
+              Start Coding
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+  </div>
+</body>
+
+</html>

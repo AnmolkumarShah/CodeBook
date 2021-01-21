@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('./includes/Bootstrap.ejs') %>
+  <link rel="stylesheet" href="CSS/output.css">
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <title><%=pageTitle%></title>
+</head>
+<body>
+  <%- include('./includes/Navbar.ejs') %>
+  <div class="jumbotron-fluid jumbotron">
+    <video src="./videos/Laptop.mp4" autoplay muted loop class="mb-5"></video>
+    <div class="main_header" data-aos="fade-up">
+      <div class="col-sm-6 mt-5">
+        <div class="display-3 text-white"><i class="fas fa-book"></i> CodeBook</div>
+        <div class="h3 text-white mt-4" style="text-align: center;">Your Anytime Code Compiler/interpreter & HandBook</div>
+      </div>
+      <div class="main_header" style="z-index: 999;">
+        <form action="/compiler" method="GET">
+          <button class="btn btn-warning btn-lg">
+            Start Coding
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <% if(msg){ %>
+    <div class="container mt-2">
+      <div class="alert alert-primary" role="alertdialog">
+        <%=msg%>
+      </div>
+    </div>
+    <% } %>
+  
+  <main class="my_container">
+    <h2 class="available" style="font-size: 2rem;" data-aos="fade-down">Available Languages</h2>
+    <div class="language">
+      <img data-aos="zoom-in"  src="/icons/clang.png" alt="cpp">
+      <img data-aos="zoom-in" src="/icons/cpp.ico" alt="cpp">
+      <img data-aos="zoom-in" src="/icons/java.ico" alt="cpp">
+      <img data-aos="zoom-in" src="/icons/python.ico" alt="cpp">
+    </div>
+
+    <section class="card" data-aos="fade-left">
+      <img src="https://cdn.pixabay.com/photo/2017/07/31/11/31/laptop-2557468__340.jpg" alt="" srcset="">
+      <div>
+        <h3>What is CodeBook ?</h3>
+        <p class="my_font">It's an Online Compiler and interpreter which runs your code on the Web, plus with CodeBook you can save all of your executed programs safe in your Account and can revisit and rerun them anytime.</p>
+      </div>
+    </section>
+
+    <section class="card" data-aos="fade-right">
+      <img src="https://cdn.pixabay.com/photo/2015/04/20/13/17/work-731198__340.jpg" alt="" srcset="">
+      <div>
+        <h3>Why CodeBook ?</h3>
+        <p class="my_font">Programming is a Fun thing to do, but before we start to program first thing that we need to set is our coding environment which differs for all programming language, and in doing so we waste much of our time.
+          But with CodeBook, you do not have to care, all you need is to get started.
+          CodeBook, is all in one Compiler/Interpreter for four programming languages namely C, C++, Java and Python 
+          </p>
+      </div>
+    </section>
+
+
+    <section class="card" data-aos="fade-left">
+      <img src="https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305__340.jpg" alt="" srcset="">
+      <div>
+        <h3>Why to make Account ?</h3>
+        <p class="my_font">By making an account in CodeBook you can not only save your executed programs but also can share your programs with other users of CodeBook, all you need is to public your program from the my book, Similarly you can save others program into your book and can execute them and learn, now you will have your own copy of that program.</p>
+      </div>
+    </section>
+
+    
+    <section class="card" data-aos="fade-right">
+      <img src="https://cdn.pixabay.com/photo/2017/07/31/11/31/laptop-2557468__340.jpg" alt="" srcset="">
+      <div>
+        <h3>Heading</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima molestiae a dolore consequatur incidunt velit rerum odit iste officiis delectus, vitae eveniet illum autem quam harum. Distinctio enim illo explicabo.</p>
+      </div>
+    </section>
+
+    <section class="card" data-aos="fade-left">
+      <img src="https://cdn.pixabay.com/photo/2015/04/20/13/17/work-731198__340.jpg" alt="" srcset="">
+      <div>
+        <h3>Heading</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima molestiae a dolore consequatur incidunt velit rerum odit iste officiis delectus, vitae eveniet illum autem quam harum. Distinctio enim illo explicabo.</p>
+      </div>
+    </section>
+
+
+    <section class="card" data-aos="fade-right">
+      <img src="https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305__340.jpg" alt="" srcset="">
+      <div>
+        <h3>Heading</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima molestiae a dolore consequatur incidunt velit rerum odit iste officiis delectus, vitae eveniet illum autem quam harum. Distinctio enim illo explicabo.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="h1 h-100 p-3 text-white"><i class="fas fa-book fa-sm"></i> CodeBook</div>
+      </div>
+      <div class="col-sm-4"></div>       
+      <div class="col-sm-5"></div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      offset : 200,
+      duration : 1000
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('./includes/Bootstrap.ejs') %>
+  <style>
+    .container{
+      margin-top: 25%;
+    }
+    body{
+      background-image: url("https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067_1280.png");
+      background-size: 100% 100%;
+      
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+  <title><%=pageTitle%></title>
+</head>
+<body>
+  <%- include('./includes/Navbar.ejs') %>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <% if(errorMessage){ %>
+          <div>
+            <div class="alert alert-warning" role="alert">
+              <%=errorMessage%>
+            </div>
+          </div>
+          <% } %>
+
+          <% if(guideMessage){ %>
+            <div>
+              <div class="alert alert-primary" role="alert">
+                <%=guideMessage%>
+              </div>
+            </div>
+            <% } %>
+        <form action="/login" method="POST" class="justify-content-center align-content-center">
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="h1 text-white">Email address</label>
+            <input autocomplete="off" name="email" type="email" class="form-control" id="exampleInputEmail1">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1" class="h1 text-white">Password</label>
+            <input autocomplete="off" name="password" type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <button type="submit" class="btn btn-primary">Login</button>
+          <a href="/reset" class="btn text-white" >reset password</a>
+          <h3 class="text-white mt-1">don't have an account ?<a class="btn text-white" href="/signup">Create One</a></h3>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

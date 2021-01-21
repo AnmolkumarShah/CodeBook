@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('./includes/Bootstrap.ejs') %>
+  <style>
+    form{
+      display:inline-block;
+      width: auto;
+    }
+  </style>
+  <title><%=pageTitle%></title>
+</head>
+
+<body>
+  <%- include('./includes/Navbar.ejs') %>
+  <hr>
+  <div class="container mt-5">
+
+    <% if(programs && programs.length > 0 ) { %>
+    <% programs.forEach(program => { %>
+    <div class="card w-100 mt-3">
+      <div class="card-body">
+        <h5 class="card-title"><%=program.programId.heading%></h5>
+        <span class="badge badge-secondary p-2 my-1"><%=program.programId.language%></span>
+        <span class="badge badge-secondary p-2 my-1"><%=program.programId.date.toLocaleDateString() %></span>
+        <hr>
+        <pre class="card-text"><%=program.programId.code%></pre>
+      </div>
+
+      <div class="card-footer">
+        <form action="/compiler/rerun" method="POST">
+          <input type="hidden" name="code" value="<%=program.programId.code%> ">
+          <input type="hidden" name="language" value="<%=program.programId.language%> ">
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <button
+            class="btn btn-outline-dark btn-sm"><%= program.programId.language === "Python Language" ? "ReInterpret" :  "ReCompile" %>
+          </button>
+        </form>
+        <form action="/user/delete-program" method="POST">
+          <input type="hidden" name="programId" value="<%=program.programId._id%>">
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <button class="btn btn-sm btn-outline-danger">Delete</button>
+        </form>
+
+        <form action="/user/toggle-public" method="POST">
+          <input type="hidden" name="programId" value="<%=program.programId._id%>">
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <button class="btn btn-sm btn-outline-primary"><%= program.programId.public ? "Already Public" : "Make Public" %></button>
+        </form>
+
+        <form action="/user/toggle-stared" method="POST">
+          <input type="hidden" name="programId" value="<%=program.programId._id%>">
+          <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+          <button class="btn btn-sm btn-warning"><%= program.programId.stared ? "Already Stared" : "Make Stared" %></button>
+        </form>
+      </div>
+    </div>
+    <% }); %>
+
+    <% }else{ %>
+    <div class="align-content-center mt-5">
+      <div class="card w-75 mt-5">
+        <div class="card-header">No Program's Yet</div>
+        <div class="card-body">
+          <form action="/compiler" method="GET">
+            <button class="btn btn-warning mt-1 btn-lg">
+              Start Coding
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+  </div>
+</body>
+
+</html>
