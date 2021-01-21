@@ -5,6 +5,9 @@ const flush = require('../functions/flush');
 
 compilex.init({stats:true});
 
+const os = process.platform === "win32" ? "windows" : "linux";
+console.log(os);
+
 exports.getCompile = (req,res,next)=>{
   res.render("compiler.ejs",{pageTitle : "Compiler",path : "/compiler" ,code:"## write your code here...",output:"",language:"Python Language"});
 };
@@ -76,7 +79,7 @@ exports.compileRun = async (req,res,next)=>{
       case "C Language":
       {
 
-        let envData = { OS : "windows",cmd : "g++",options: {timeout:2000 }};
+        let envData = { OS : os,cmd : "g++",options: {timeout:2000 }};
         if(isInput){
           compilex.compileCPPWithInput(envData,code, input ,async function(data){
             if(data.error){	
@@ -107,7 +110,7 @@ exports.compileRun = async (req,res,next)=>{
       case "C++ Language":
       {
 
-        let envData = { OS : "windows",cmd : "g++",options: {timeout:2000 }};
+        let envData = { OS : os,cmd : "g++",options: {timeout:2000 }};
         if(isInput){
           compilex.compileCPPWithInput(envData,code, input ,async function(data){
             if(data.error){	
@@ -140,7 +143,7 @@ exports.compileRun = async (req,res,next)=>{
       case "Java Language":
       {
         
-        let envData = { OS : "windows",options: {timeout:2000 }};
+        let envData = { OS : os,options: {timeout:2000 }};
         if(isInput){
           compilex.compileJavaWithInput(envData,code, input ,async function(data){
             if(data.error){	
@@ -175,7 +178,7 @@ exports.compileRun = async (req,res,next)=>{
       case "Python Language":
       {
 
-        let envData = { OS : "windows",options: {timeout:2000 }};
+        let envData = { OS : os,options: {timeout:2000 }};
         if(isInput){
           compilex.compilePythonWithInput(envData,code, input ,async function(data){
             if(data.error){	
