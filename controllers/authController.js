@@ -130,7 +130,12 @@ exports.postSignup = async (req, res, next) => {
         from: "anmolkumar.20k@gmail.com",
         to: email,
         subject: "Welcome to CodeBook !!!",
-        text: "This is Test Email"
+        html : `
+          <h1>CodeBook</h1>
+          <h3>Welcome, ${firstName}</h3>
+          <p>It's an Online Compiler and interpreter which runs your code on the Web, plus with CodeBook you can save all of your executed programs safe in your Account and can revisit and rerun them anytime.</p>
+          <p>Click this <a href="http://localhost:5000/compiler">link</a> to write your first code</p>
+        `
       };
 
       await transport.sendMail(mailOptions);
